@@ -9,6 +9,13 @@ A modernized version of the [Waveshare e-Paper library](https://github.com/waves
 - Updated to modern Python practices
 - Better error handling and logging
 - Simplified project structure
+- Lazy imports to avoid GPIO initialization on development machines
+
+## Installation
+After trying a couple handful of Pypi project names, this is the one that I was able to successfully claim. The import structure in your code will remain similar to the Waveshare original, for now.
+```bash
+pip install eink-wave
+```
 
 ## Quick Start
 
@@ -19,11 +26,6 @@ uv sync
 
 2. Run the simple demo:
 ```bash
-python demo.py
-```
-
-3. Or run the full demo with animations:
-```bash
 python start.py
 ```
 
@@ -31,11 +33,30 @@ python start.py
 
 ```
 waveshare_epaper/
-├── epd/                   # E-paper display modules
-├── demo.py               # Simple demo script
-├── start.py              # Full demo with animations
-├── pyproject.toml        # Project configuration
-└── README.md             # This file
+├── src/waveshare_epd/     # E-paper display modules
+├── start.py               # Demo script
+├── pyproject.toml         # Project configuration
+├── README.md              # This file
+```
+
+## Usage
+
+Import specific display modules as needed:
+
+```python
+from waveshare_epd.epd4in2_V2 import EPD
+
+# Initialize display
+epd = EPD()
+epd.init()
+epd.Clear()
+
+# Create and display image
+from PIL import Image, ImageDraw
+image = Image.new('1', (epd.width, epd.height), 255)
+draw = ImageDraw.Draw(image)
+draw.text((10, 10), 'Hello World!', fill=0)
+epd.display(epd.getbuffer(image))
 ```
 
 ## Supported Displays
@@ -44,19 +65,19 @@ Works with various e-paper displays: 1.54", 2.13", 2.7", 2.9", 4.2", 5.83", and 
 
 ## Demo Features
 
-The demo scripts showcase:
+The demo script showcases:
 - Text and graphics rendering
-- Image display
-- 4-gray mode
+- 4-gray mode display
 - Partial update animations
-- Perimeter box animation with center text counter
+- System information display
 
 ## Requirements
 
 - Python 3.8+
-- `uv` package manager
-- `python-periphery`
-- PIL/Pillow
+- uv package manager
+- python-periphery
+- PIL (Pillow)
+- Raspberry Pi or Jetson Nano (for hardware)
 
 ## License
 

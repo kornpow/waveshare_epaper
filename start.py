@@ -13,7 +13,7 @@ import traceback
 from PIL import Image, ImageDraw, ImageFont
 
 # Import the e-paper display module
-from epd.epd4in2_V2 import EPD
+from waveshare_epd.epd4in2_V2 import EPD
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
