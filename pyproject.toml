@@ -1,0 +1,21 @@
+[project]
+name = "waveshare-epaper"
+version = "0.1.0"
+description = "Modernized Waveshare e-Paper library using python-periphery and uv"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "Pillow>=9.0.0",
+    "python-periphery>=2.4.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "flake8>=6.0.0",
+]
